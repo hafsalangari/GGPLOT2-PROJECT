@@ -1,0 +1,102 @@
+
+#ggplot 
+install.packages("ggplot2")
+library(ggplot2)
+View(mydata)
+
+str(mydata)       # structure
+names(mydata)     # column names
+head(mydata)      # first few rows
+
+
+
+install.packages("tidyverse")
+
+
+library(tidyverse)
+
+# 2. Inspect your dataset
+View(mydata)  # as suggested in Section 3.1.1
+
+# -----------------------------------------------------------
+# 3. Scatterplot (Section 3.2 - First Steps)
+# -----------------------------------------------------------
+ggplot(data = mydata) + 
+  geom_point(mapping = aes(x = Age, y = Monthly_Spending_USD))
+
+ggplot(data = mydata) + 
+  geom_point(mapping = aes(x = Age, y = Monthly_Spending_USD, color = Gender))
+
+# -----------------------------------------------------------
+# 4. Aesthetic mappings (Section 3.3)
+# -----------------------------------------------------------
+ggplot(data = mydata) + 
+  geom_point(mapping = aes(x = Age, y = Monthly_Spending_USD, size = Satisfaction))
+
+ggplot(data = mydata) + 
+  geom_point(mapping = aes(x = Age, y = Monthly_Spending_USD, shape = Sport))
+
+# -----------------------------------------------------------
+# 5. Facets (Section 3.5)
+# -----------------------------------------------------------
+ggplot(data = mydata) + 
+  geom_point(mapping = aes(x = Age, y = Monthly_Spending_USD)) + 
+  facet_wrap(~ Gender, nrow = 2)
+
+ggplot(data = mydata) + 
+  geom_point(mapping = aes(x = Age, y = Monthly_Spending_USD)) + 
+  facet_grid(Gender ~ Sport)
+
+# -----------------------------------------------------------
+# 6. Geoms (Section 3.6)
+# -----------------------------------------------------------
+ggplot(data = mydata, mapping = aes(x = Age, y = Monthly_Spending_USD)) + 
+  geom_point() + 
+  geom_smooth()
+
+ggplot(data = mydata, mapping = aes(x = Age, y = Monthly_Spending_USD)) + 
+  geom_point(mapping = aes(color = Gender)) + 
+  geom_smooth()
+
+# -----------------------------------------------------------
+# 7. Statistical transformations (Section 3.7)
+# -----------------------------------------------------------
+ggplot(data = mydata) + 
+  geom_bar(mapping = aes(x = Sport))
+
+# Proportion example (after_stat) from instructions
+ggplot(data = mydata) + 
+  geom_bar(mapping = aes(x = Sport, y = after_stat(prop), group = 1))
+
+# -----------------------------------------------------------
+# 8. Position adjustments (Section 3.8)
+# -----------------------------------------------------------
+ggplot(data = mydata) + 
+  geom_bar(mapping = aes(x = Sport, fill = Gender))
+
+ggplot(data = mydata) + 
+  geom_bar(mapping = aes(x = Sport, fill = Gender), position = "dodge")
+
+ggplot(data = mydata) + 
+  geom_point(mapping = aes(x = Age, y = Monthly_Spending_USD), position = "jitter")
+
+# -----------------------------------------------------------
+# 9. Coordinate systems (Section 3.9)
+# -----------------------------------------------------------
+ggplot(data = mydata, mapping = aes(x = Gender, y = Monthly_Spending_USD)) + 
+  geom_boxplot()
+
+ggplot(data = mydata, mapping = aes(x = Gender, y = Monthly_Spending_USD)) + 
+  geom_boxplot() +
+  coord_flip()
+
+# -----------------------------------------------------------
+# 10. Layered grammar of graphics template (Section 3.10)
+# -----------------------------------------------------------
+ggplot(data = mydata) + 
+  geom_bar(
+    mapping = aes(x = Sport, fill = Gender),
+    stat = "count", 
+    position = "dodge"
+  ) +
+  coord_flip()
